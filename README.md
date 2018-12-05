@@ -4,6 +4,6 @@
 ## Howto
 ### Quick Start
 ```
-docker run -it --rm  -p 9000:9000 -e ZK_HOSTS="your-zk.domain:2181" -e wilkystorm/kafka-manager
+docker run -it --rm  -p 9000:9000 -e ZK_HOSTS="your-zk.domain:2181" -e wilkystorm/kafka-manager-docker
 ```
 (if you don't define ZK_HOSTS, default value has been set to "localhost:2181")
