@@ -24,7 +24,7 @@ docker run [...] -v /path/to/confdir:/opt -e KM_CONFIG=/opt/my.conf wilkystorm/k
 ### Pass arguments to kafka-manager
 For release <= 1.3.0.4, you can pass options via command/args.
 ```
-docker run -it --rm  -p 9000:9000 -e ZK_HOSTS="your-zk.domain:2181" -e APPLICATION_SECRET=letmein wilkystorm/kafka-manager -Djava.net.preferIPv4Stack=true
+docker run -it --rm  -p 9000:9000 -e ZK_HOSTS="your-zk.domain:2181" -e wilkystorm/kafka-manager -Djava.net.preferIPv4Stack=true
 ```
 For release > 1.3.0.4, you can use env variable `KM_ARGS`.
 ```
