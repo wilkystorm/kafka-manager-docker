@@ -9,7 +9,9 @@ RUN echo "Building Kafka Manager" \
     && tar -xzf kafka-manager-sources.tar.gz -C /kafka-manager-source --strip-components=1 \
     && cd /kafka-manager-source \
     && echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt \
-    && ./sbt clean dist \
+    && RUN ( ./sbt clean dist ; exit 0) # even though it fails, if we return the exit code 0 we can try to proceed again \
+    && RUN (ls $KAFKA_MANAGER_DIST_FILE && exit 0) || ( ./sbt clean dist ; exit 0) # result of of sbt build is a file \
+    && RUN (ls $KAFKA_MANAGER_DIST_FILE && exit 0) || ( ./sbt clean dist ; exit 0) \
     && unzip -d ./builded ./target/universal/kafka-manager-${KAFKA_MANAGER_VERSION}.zip \
     && mv -T ./builded/kafka-manager-${KAFKA_MANAGER_VERSION} /kafka-manager-bin
 
