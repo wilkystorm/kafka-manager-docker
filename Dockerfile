@@ -1,34 +1,24 @@
-FROM centos:7
+### STAGE 1: Build ### 
+FROM openjdk:8u131-jdk AS build 
 
-MAINTAINER Mike Wilkinson <wilkystorm@gmail.com>
+ENV KAFKA_MANAGER_VERSION=1.3.3.18 RUN echo "Building Kafka Manager" \
+    && wget "https://github.com/yahoo/kafka-manager/archive/${KAFKA_MANAGER_VERSION}.tar.gz" -O kafka-manager-sources.tar.gz \
+    && mkdir /kafka-manager-source \
+    && tar -xzf kafka-manager-sources.tar.gz -C /kafka-manager-source --strip-components=1 \
+    && cd /kafka-manager-source \
+    && echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt \
+    && ./sbt clean dist \
+    && unzip -d ./builded ./target/universal/kafka-manager-${KAFKA_MANAGER_VERSION}.zip \
+    && mv -T ./builded/kafka-manager-${KAFKA_MANAGER_VERSION} /kafka-manager-bin
 
-RUN yum update -y && \
-    yum install -y java-1.8.0-openjdk-headless && \
-    yum clean all
+### STAGE 2: Package ### 
+FROM openjdk:8u131-jre-alpine 
+MAINTAINER Mike Wilkinson <wilkystorm@gmail.com> 
 
-ENV JAVA_HOME=/usr/java/default/ \
-    ZK_HOSTS=localhost:2181 \
-    KM_VERSION=1.3.3.21 \
-    KM_REVISION=8dcdbf8fabb0001691c9b52b447b656f498b4d7b \
-    KM_CONFIGFILE="conf/application.conf"
+RUN apk update && apk add bash
 
-ADD start-kafka-manager.sh /kafka-manager-${KM_VERSION}/start-kafka-manager.sh
+COPY --from=build /kafka-manager-bin /kafka-manager
 
-RUN yum install -y java-1.8.0-openjdk-devel git wget unzip which && \
-    mkdir -p /tmp && \
-    cd /tmp && \
-    git clone https://github.com/yahoo/kafka-manager && \
-    cd /tmp/kafka-manager && \
-    git checkout ${KM_REVISION} && \
-    echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt && \
-    ./sbt clean dist && \
-    unzip  -d / ./target/universal/kafka-manager-${KM_VERSION}.zip && \
-    rm -fr /tmp/* /root/.sbt /root/.ivy2 && \
-    chmod +x /kafka-manager-${KM_VERSION}/start-kafka-manager.sh && \
-    yum autoremove -y java-1.8.0-openjdk-devel git wget unzip which && \
-    yum clean all
+VOLUME /kafka-manager/conf
 
-WORKDIR /kafka-manager-${KM_VERSION}
-
-EXPOSE 9000
-ENTRYPOINT ["./start-kafka-manager.sh"]
+ENTRYPOINT ["/kafka-manager/bin/kafka-manager"]
