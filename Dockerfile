@@ -12,8 +12,8 @@ RUN echo "Building Kafka Manager" \
     && RUN ( ./sbt clean dist ; exit 0) # even though it fails, if we return the exit code 0 we can try to proceed again \
     && RUN (ls $KAFKA_MANAGER_DIST_FILE && exit 0) || ( ./sbt clean dist ; exit 0) # result of of sbt build is a file \
     && RUN (ls $KAFKA_MANAGER_DIST_FILE && exit 0) || ( ./sbt clean dist ; exit 0) \
-    && unzip -d ./builded ./target/universal/kafka-manager-${KAFKA_MANAGER_VERSION}.zip \
-    && mv -T ./builded/kafka-manager-${KAFKA_MANAGER_VERSION} /kafka-manager-bin
+    && unzip -d ./built ./target/universal/kafka-manager-${KAFKA_MANAGER_VERSION}.zip \
+    && mv -T ./built/kafka-manager-${KAFKA_MANAGER_VERSION} /kafka-manager-bin
 
 ### STAGE 2: Package ### 
 FROM openjdk:8u131-jre-alpine 
