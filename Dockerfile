@@ -1,13 +1,13 @@
 ### STAGE 1: Build ### 
 FROM openjdk:8u131-jdk AS build 
 
-ENV KAFKA_MANAGER_VERSION=1.3.3.21 
+ENV KAFKA_MANAGER_VERSION=1.3.3.21
+ENV KAFKA_MANAGER_SRC_DIR=kafka-manager
+ENV KAFKA_MANAGER_DIST_FILE=$KAFKA_MANAGER_SRC_DIR/target/universal/kafka-manager-$KAFKA_MANAGER_VERSION.zip
 
 RUN echo "Building Kafka Manager" \
-    && wget "https://github.com/yahoo/kafka-manager/archive/${KAFKA_MANAGER_VERSION}.tar.gz" -O kafka-manager-sources.tar.gz \
-    && mkdir /kafka-manager-source \
-    && tar -xzf kafka-manager-sources.tar.gz -C /kafka-manager-source --strip-components=1 \
-    && cd /kafka-manager-source \
+    && git clone https://github.com/yahoo/kafka-manager.git \
+    && cd kafka-manager \
     && echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt \
     && RUN ( ./sbt clean dist ; exit 0) # even though it fails, if we return the exit code 0 we can try to proceed again \
     && RUN (ls $KAFKA_MANAGER_DIST_FILE && exit 0) || ( ./sbt clean dist ; exit 0) # result of of sbt build is a file \
