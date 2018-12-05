@@ -3,7 +3,7 @@ FROM openjdk:8u131-jdk AS build
 
 ENV KAFKA_MANAGER_VERSION=1.3.3.21
 ENV KAFKA_MANAGER_SRC_DIR=kafka-manager
-ENV KAFKA_MANAGER_DIST_FILE=$KAFKA_MANAGER_SRC_DIR/target/universal/kafka-manager-$KAFKA_MANAGER_VERSION.zip
+ENV KAFKA_MANAGER_DIST_FILE=target/universal/kafka-manager-$KAFKA_MANAGER_VERSION.zip
 
 RUN echo "Building Kafka Manager" \
     && git clone https://github.com/yahoo/kafka-manager.git \
@@ -12,8 +12,8 @@ RUN echo "Building Kafka Manager" \
     && RUN ( ./sbt clean dist ; exit 0) # even though it fails, if we return the exit code 0 we can try to proceed again \
     && RUN (ls $KAFKA_MANAGER_DIST_FILE && exit 0) || ( ./sbt clean dist ; exit 0) # result of of sbt build is a file \
     && RUN (ls $KAFKA_MANAGER_DIST_FILE && exit 0) || ( ./sbt clean dist ; exit 0) \
-    && unzip -d ./built ./target/universal/kafka-manager-${KAFKA_MANAGER_VERSION}.zip \
-    && mv -T ./built/kafka-manager-${KAFKA_MANAGER_VERSION} /kafka-manager-bin
+    && unzip -d ./build ./target/universal/kafka-manager-${KAFKA_MANAGER_VERSION}.zip \
+    && mv -T ./build/kafka-manager-${KAFKA_MANAGER_VERSION} /kafka-manager-bin
 
 ### STAGE 2: Package ### 
 FROM openjdk:8u131-jre-alpine 
