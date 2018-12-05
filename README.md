@@ -12,13 +12,13 @@ docker run -it --rm  -p 9000:9000 -e ZK_HOSTS="your-zk.domain:2181" -e wilkystor
 
 
 ### Use your own configuration file
-Until 1.3.0.4, you were able to override default configuration file via a docker volume to overi:
+Until 1.3.0.4, you were able to override default configuration file via a docker volume:
 ```
 docker run [...] -v /path/to/confdir:/kafka-manager-${KM_VERSION}/conf [...]
 ```
 From > 1.3.0.4, you can specify a configuration file via an environment variable.
 ```
-docker run [...] -v /path/to/confdir:/opt -e KM_CONFIG=/opt/my.conf wilkystorm/kafka-manager
+docker run [...] -v /path/to/confdir:/opt -e KM_CONFIG=/opt/my.conf wilkystorm/kafka-manager-docker
 ```
 
 ### Pass arguments to kafka-manager
