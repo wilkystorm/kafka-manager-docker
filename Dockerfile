@@ -2,16 +2,14 @@
 FROM openjdk:8u131-jdk AS build 
 
 ENV KAFKA_MANAGER_VERSION=1.3.3.21
-ENV KAFKA_MANAGER_SRC_DIR=kafka-manager
-ENV KAFKA_MANAGER_DIST_FILE=target/universal/kafka-manager-$KAFKA_MANAGER_VERSION.zip
 
 RUN echo "Building Kafka Manager" \
     && git clone https://github.com/yahoo/kafka-manager.git \
     && cd kafka-manager \
     && echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt \
     && RUN ( ./sbt clean dist ; exit 0) # even though it fails, if we return the exit code 0 we can try to proceed again \
-    && RUN (ls $KAFKA_MANAGER_DIST_FILE && exit 0) || ( ./sbt clean dist ; exit 0) # result of of sbt build is a file \
-    && RUN (ls $KAFKA_MANAGER_DIST_FILE && exit 0) || ( ./sbt clean dist ; exit 0) \
+    && RUN (ls target/universal/kafka-manager-$KAFKA_MANAGER_VERSION.zip && exit 0) || ( ./sbt clean dist ; exit 0) \
+    && RUN (ls target/universal/kafka-manager-$KAFKA_MANAGER_VERSION.zip && exit 0) || ( ./sbt clean dist ; exit 0) \
     && unzip -d ./build ./target/universal/kafka-manager-${KAFKA_MANAGER_VERSION}.zip \
     && mv -T ./build/kafka-manager-${KAFKA_MANAGER_VERSION} /kafka-manager-bin
 
