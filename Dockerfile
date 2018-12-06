@@ -3,6 +3,7 @@ FROM ubuntu:18.04
 
 RUN echo "Building Kafka Manager" \
     && apt-get update \
+    && apt-get install ca-certificates-java \
     && apt-get install -y git \
     && apt-get -f install \
     && git clone https://github.com/yahoo/kafka-manager.git \
