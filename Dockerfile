@@ -6,7 +6,7 @@ RUN echo "Building Kafka Manager" \
     && apt-get -f install \
     && apt-get install curl \
     && apt-get -f install \
-    && curl -o /root/.sbt/launchers/0.13.9/sbt-launch.jar http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.9/sbt-launch.jar
+    && curl -o /root/.sbt/launchers/0.13.9/sbt-launch.jar http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.9/sbt-launch.jar \
     && apt-get install -y unzip \
     && apt-get -f install \
     && git clone https://github.com/yahoo/kafka-manager.git \
