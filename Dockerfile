@@ -4,10 +4,12 @@ RUN echo "Building Kafka Manager" \
     && apt-get update \
     && apt-get install -y git \
     && apt-get -f install \
+    && apt-get install -y software-properties-common \
+    && apt-get -f install \
     && add-apt-repository ppa:webupd8team/java \
-    && apt update \
-    && apt install -y oracle-java8-installer \
-    && apt install -y oracle-java8-set-default \
+    && apt-get update \
+    && apt-get install -y oracle-java8-installer \
+    && apt-get install -y oracle-java8-set-default \
     && git clone https://github.com/yahoo/kafka-manager.git \
     && cd kafka-manager \
     && chmod +x ./sbt \
