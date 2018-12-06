@@ -6,7 +6,8 @@ RUN echo "Building Kafka Manager" \
     && apt-get -f install \
     && apt-get install -y software-properties-common \
     && apt-get -f install \
-    && add-apt-repository ppa:gregprice/scala \
+    && echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list \
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 \
     && apt-get update \
     && apt-get install -y sbt \
     && apt-get -f install \
