@@ -4,8 +4,8 @@ RUN echo "Building Kafka Manager" \
     && apt-get update \
     && apt-get install -y git \
     && apt-get -f install \
-    && add-apt-repository ppa:gregprice/scala
-    && apt-get update
+    && add-apt-repository ppa:gregprice/scala \
+    && apt-get update \
     && apt-get install -y sbt \
     && apt-get -f install \
     && git clone https://github.com/yahoo/kafka-manager.git \
