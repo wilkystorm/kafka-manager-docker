@@ -6,7 +6,7 @@ RUN echo "Building Kafka Manager" \
     && apt-get -f install \
     && git clone https://github.com/yahoo/kafka-manager.git \
     && cd kafka-manager \
-    && chmod +x ./sbt
+    && chmod +x ./sbt \
     && echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt \
     && (./sbt clean dist ; exit 0) \
     && (ls target/universal/kafka-manager-1.3.3.21.zip && exit 0) || (./sbt clean dist ; exit 0) \
