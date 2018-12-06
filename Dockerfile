@@ -4,13 +4,9 @@ RUN echo "Building Kafka Manager" \
     && apt-get update \
     && apt-get install -y git \
     && apt-get -f install \
-    && apt-get install -y software-properties-common \
+    && apt-get install curl \
     && apt-get -f install \
-    && echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list \
-    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 \
-    && apt-get update \
-    && apt-get install -y sbt \
-    && apt-get -f install \
+    && curl -o /root/.sbt/launchers/0.13.9/sbt-launch.jar http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.9/sbt-launch.jar
     && apt-get install -y unzip \
     && apt-get -f install \
     && git clone https://github.com/yahoo/kafka-manager.git \
