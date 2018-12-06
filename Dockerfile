@@ -4,7 +4,7 @@ RUN echo "Building Kafka Manager" \
     && apt-get update \
     && apt-get install -y git \
     && apt-get -f install \
-    && apt-get install curl \
+    && apt-get install -y curl \
     && apt-get -f install \
     && curl -o /root/.sbt/launchers/0.13.9/sbt-launch.jar http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.9/sbt-launch.jar \
     && apt-get install -y unzip \
