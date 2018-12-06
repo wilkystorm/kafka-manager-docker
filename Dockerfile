@@ -1,7 +1,9 @@
 ### STAGE 1: Build ### 
-FROM ubuntu:15.04 
+FROM ubuntu:18.04 
 
 RUN echo "Building Kafka Manager" \
+    && apt-get update \
+    && apt-get upgrade \
     && apt-get install -y git \
     && apt-get -f install \
     && git clone https://github.com/yahoo/kafka-manager.git \
