@@ -1,4 +1,3 @@
-### STAGE 1: Build ### 
 FROM ubuntu:18.04 
 
 RUN echo "Building Kafka Manager" \
