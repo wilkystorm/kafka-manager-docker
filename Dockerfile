@@ -10,5 +10,5 @@ RUN echo "Building Kafka Manager" \
     && (ls target/universal/kafka-manager-1.3.3.21.zip && exit 0) || (./sbt clean dist ; exit 0) \
     && (ls target/universal/kafka-manager-1.3.3.21.zip && exit 0) || (./sbt clean dist ; exit 0) \
     && unzip -d ./build ./target/universal/kafka-manager-1.3.3.21.zip \
-    && chmod +x ./build/kafka-manager-1.3.3.21/bin/kafka-manager
+    && chmod +x ./build/kafka-manager-1.3.3.21/bin/kafka-manager \
     && ./build/kafka-manager-1.3.3.21/bin/kafka-manager
