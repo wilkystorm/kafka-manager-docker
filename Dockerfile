@@ -11,7 +11,7 @@ RUN echo "Building Kafka Manager" \
     && apt-get update \
     && apt-get install -y sbt \
     && apt-get -f install \
-    && apt-get install unzip \
+    && apt-get install -y unzip \
     && apt-get -f install \
     && git clone https://github.com/yahoo/kafka-manager.git \
     && cd kafka-manager \
