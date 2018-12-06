@@ -3,6 +3,7 @@ FROM ubuntu:15.04
 
 RUN echo "Building Kafka Manager" \
     && apt-get install -y git \
+    && apt-get -f install \
     && git clone https://github.com/yahoo/kafka-manager.git \
     && cd kafka-manager \
     && echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt \
