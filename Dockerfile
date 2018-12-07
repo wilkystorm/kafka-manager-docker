@@ -8,8 +8,8 @@ ENV JAVA_HOME=/usr/java/default/ \
     ZK_HOSTS=localhost:2181 \ 
     KM_VERSION=1.3.3.21 \ 
     KM_REVISION=e27328cd29cd1f4a6fc89764003bbde2b1ac4cbb \ 
-    KM_CONFIGFILE="conf/application.conf" 
-    KM_PORT=9000
+    KM_CONFIGFILE="conf/application.conf" \
+    KM_PORT=9000 \
     KM_ARGS=""
     
 RUN yum install -y java-1.8.0-openjdk-devel git wget unzip which && \
