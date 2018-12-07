@@ -7,7 +7,7 @@ RUN yum update -y && \
 ENV JAVA_HOME=/usr/java/default/ \ 
     ZK_HOSTS=localhost:2181 \ 
     KM_VERSION=1.3.3.21 \ 
-    KM_REVISION=05b2829653f7da15857ab03f3cbd669e4014333a \ 
+    KM_REVISION=e27328cd29cd1f4a6fc89764003bbde2b1ac4cbb \ 
     KM_CONFIGFILE="conf/application.conf" 
     
 ADD start-kafka-manager.sh /kafka-manager-${KM_VERSION}/start-kafka-manager.sh
@@ -27,4 +27,5 @@ RUN yum install -y java-1.8.0-openjdk-devel git wget unzip which && \
     
 WORKDIR /kafka-manager-${KM_VERSION}
 
-EXPOSE 9000 ENTRYPOINT ["./start-kafka-manager.sh"]
+EXPOSE 9000 
+ENTRYPOINT ["./start-kafka-manager.sh"]
