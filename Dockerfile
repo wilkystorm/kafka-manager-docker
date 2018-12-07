@@ -25,8 +25,6 @@ RUN yum install -y java-1.8.0-openjdk-devel git wget unzip which && \
     yum autoremove -y java-1.8.0-openjdk-devel git wget unzip which && \
     yum clean all
     
-ADD /kafka-manager-${KM_VERSION} /kafka-manager-${KM_VERSION}
-    
 WORKDIR /kafka-manager-${KM_VERSION}/bin
 
 EXPOSE 9000 
