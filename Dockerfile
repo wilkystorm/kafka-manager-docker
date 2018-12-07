@@ -16,7 +16,9 @@ RUN yum install -y java-1.8.0-openjdk-devel git wget unzip which && \
     git clone https://github.com/yahoo/kafka-manager && \
     cd /tmp/kafka-manager && \
     echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt && \
-    ./sbt clean dist && \
+    (./sbt clean dist ; exit 0) && \
+    (ls target/universal/kafka-manager-${KM_VERSION}.zip && exit 0) || (./sbt clean dist ; exit 0) && \
+    (ls target/universal/kafka-manager-${KM_VERSION}.zip && exit 0) || (./sbt clean dist ; exit 0) && \
     unzip  -d / ./target/universal/kafka-manager-${KM_VERSION}.zip && \
     rm -fr /tmp/* /root/.sbt /root/.ivy2 && \
     chmod +x /kafka-manager-${KM_VERSION}/start-kafka-manager.sh && \
