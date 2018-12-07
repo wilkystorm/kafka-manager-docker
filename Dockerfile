@@ -10,8 +10,6 @@ ENV JAVA_HOME=/usr/java/default/ \
     KM_REVISION=e27328cd29cd1f4a6fc89764003bbde2b1ac4cbb \ 
     KM_CONFIGFILE="conf/application.conf" 
     
-ADD start-kafka-manager.sh /kafka-manager-${KM_VERSION}/start-kafka-manager.sh
-
 RUN yum install -y java-1.8.0-openjdk-devel git wget unzip which && \
     mkdir -p /tmp && \
     cd /tmp && \
@@ -25,7 +23,10 @@ RUN yum install -y java-1.8.0-openjdk-devel git wget unzip which && \
     yum autoremove -y java-1.8.0-openjdk-devel git wget unzip which && \
     yum clean all
     
+ADD start-kafka-manager.sh /kafka-manager-${KM_VERSION}/start-kafka-manager.sh
+    
 WORKDIR /kafka-manager-${KM_VERSION}
 
 EXPOSE 9000 
+
 ENTRYPOINT ["./start-kafka-manager.sh"]
