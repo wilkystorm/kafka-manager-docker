@@ -8,9 +8,9 @@ ENV JAVA_HOME=/usr/java/default/ \
     ZK_HOSTS=localhost:2181 \ 
     KM_VERSION=1.3.3.21 \ 
     KM_REVISION=e27328cd29cd1f4a6fc89764003bbde2b1ac4cbb \ 
-    KM_CONFIGFILE="conf/application.conf" \
-    KM_PORT=9000 \
-    KM_ARGS=""
+    KM_CONFIGFILE="conf/application.conf"
+    
+ADD start-kafka-manager.sh /kafka-manager-${KM_VERSION}/start-kafka-manager.sh
     
 RUN yum install -y java-1.8.0-openjdk-devel git wget unzip which && \
     mkdir -p /tmp && \
@@ -27,8 +27,8 @@ RUN yum install -y java-1.8.0-openjdk-devel git wget unzip which && \
     yum autoremove -y java-1.8.0-openjdk-devel git wget unzip which && \
     yum clean all
     
-WORKDIR /kafka-manager-${KM_VERSION}/bin
+WORKDIR /kafka-manager-${KM_VERSION}
 
-EXPOSE ${KM_PORT} 
+EXPOSE 9000 
 
-ENTRYPOINT ["./kafka-manager"]
+ENTRYPOINT ["./start-kafka-manager.sh"]
