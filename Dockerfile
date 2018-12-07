@@ -24,6 +24,7 @@ RUN yum install -y java-1.8.0-openjdk-devel git wget unzip which && \
     unzip  -d / ./target/universal/kafka-manager-${KM_VERSION}.zip && \
     rm -fr /tmp/* /root/.sbt /root/.ivy2 && \
     chmod +x /kafka-manager-${KM_VERSION}/bin/kafka-manager && \
+    chmod +x /kafka-manager-${KM_VERSION}/start-kafka-manager.sh && \
     yum autoremove -y java-1.8.0-openjdk-devel git wget unzip which && \
     yum clean all
     
